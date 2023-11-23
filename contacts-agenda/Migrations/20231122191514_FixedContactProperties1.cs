@@ -7,7 +7,7 @@
 namespace contacts_agenda.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class FixedContactProperties1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,9 @@ namespace contacts_agenda.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Address = table.Column<string>(type: "TEXT", nullable: false),
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    ProfilePicture = table.Column<string>(type: "TEXT", nullable: false),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -62,11 +64,11 @@ namespace contacts_agenda.Migrations
 
             migrationBuilder.InsertData(
                 table: "Contacts",
-                columns: new[] { "Id", "Email", "LastName", "Name", "PhoneNumber", "UserId" },
+                columns: new[] { "Id", "Address", "Email", "LastName", "Name", "PhoneNumber", "ProfilePicture", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "contact1@mail.com", "c2", "contact1", "1", 1 },
-                    { 2, "contact2@mail.com", "c2", "contact2", "2", 2 }
+                    { 1, "", "contact1@mail.com", "c2", "contact1", "1", "", 1 },
+                    { 2, "la paz", "contact2@mail.com", "c2", "contact2", "2", "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.confirmbets.com%2Fwp-content%2Fuploads%2F2019%2F07%2FMessi.jpg&f=1&nofb=1&ipt=6035a6696880fc216b7b9936ccdd11f3598497d322ae62f73fc7ae390179b0ca&ipo=images", 2 }
                 });
 
             migrationBuilder.CreateIndex(

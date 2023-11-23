@@ -2,17 +2,16 @@
 using ContactsAgenda.Data.Entities;
 using ContactsAgenda.Data.Models.Dtos;
 using ContactsAgenda.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactsAgenda.Services
 {
     public class UserService
     {
         private readonly AgendaContext _context;
-        private readonly ContactService _contactService;
-        public UserService(AgendaContext context, ContactService contactService)
+        public UserService(AgendaContext context)
         {
             _context = context;
-            _contactService = contactService;
         }
         public IEnumerable<UserDto> GetAll()
         {
@@ -80,8 +79,11 @@ namespace ContactsAgenda.Services
         }
         public void Delete(UserForDeletion dto)
         {
-            User userToDelete = _context.Users.Single(u => u.Email == dto.Email);
-            _contactService.DeleteByUser(userToDelete.Id);
+            User userToDelete = _context.Users.Include(x => x.Contacts).Single(u => u.Email == dto.Email);
+            foreach (Contact contact in userToDelete.Contacts)
+            {
+                _context.Contacts.Remove(contact);
+            }
             _context.Users.Remove(userToDelete);
             _context.SaveChanges();
         }

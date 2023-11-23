@@ -1,7 +1,6 @@
 ﻿using ContactsAgenda.Data.Entities;
 using ContactsAgenda.Data.Models.Enums;
 using ContactsAgenda.Helpers;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactsAgenda.Data
@@ -41,9 +40,11 @@ namespace ContactsAgenda.Data
                         Id = 1,
                         Name = "contact1",
                         LastName = "c2",
+                        Address = "",
                         Email = "contact1@mail.com",
                         PhoneNumber = "1",
                         Description = "contact1",
+                        ProfilePicture = "",
                         UserId = 1
                     },
                     new Contact()
@@ -51,9 +52,11 @@ namespace ContactsAgenda.Data
                         Id = 2,
                         Name = "contact2",
                         LastName = "c2",
+                        Address = "la paz",
                         Email = "contact2@mail.com",
                         PhoneNumber = "2",
                         Description = "contact2",
+                        ProfilePicture = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.confirmbets.com%2Fwp-content%2Fuploads%2F2019%2F07%2FMessi.jpg&f=1&nofb=1&ipt=6035a6696880fc216b7b9936ccdd11f3598497d322ae62f73fc7ae390179b0ca&ipo=images",
                         UserId = 2
                     }
                 );

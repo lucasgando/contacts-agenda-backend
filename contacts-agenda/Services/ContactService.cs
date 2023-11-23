@@ -12,7 +12,6 @@ namespace ContactsAgenda.Services
         {
             _context = context;
         }
-
         public List<ContactDto> GetAll()
         {
             return _context.Contacts.Select(c => new ContactDto()
@@ -20,10 +19,11 @@ namespace ContactsAgenda.Services
                     Id = c.Id,
                     Name = c.Name,
                     LastName = c.LastName,
+                    Address = c.Address,
                     Email = c.Email,
                     PhoneNumber = c.PhoneNumber,
                     Description = c.Description,
-                    UserId = c.UserId,
+                    ProfilePicture = c.ProfilePicture
                 }).ToList();
         }
         public ContactDto? GetById(int id)
@@ -36,26 +36,33 @@ namespace ContactsAgenda.Services
                         Id = contact.Id,
                         Name = contact.Name,
                         LastName = contact.LastName,
+                        Address = contact.Address,
                         Email = contact.Email,
                         PhoneNumber = contact.PhoneNumber,
                         Description = contact.Description,
-                        UserId = contact.UserId,
+                        ProfilePicture = contact.ProfilePicture
                     };
         }
         public List<ContactDto> GetByUserId(int userId)
         {
             return _context.Contacts.Where(c => c.UserId == userId)
                 .Select(c => new ContactDto()
-                    {
-                        Id = c.Id,
-                        Name = c.Name,
-                        LastName = c.LastName,
-                        Email = c.Email,
-                        PhoneNumber = c.PhoneNumber,
-                        Description = c.Description,
-                        UserId = c.UserId,
-
-                    }).ToList();
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    LastName = c.LastName,
+                    Address = c.Address,
+                    Email = c.Email,
+                    PhoneNumber = c.PhoneNumber,
+                    Description = c.Description,
+                    ProfilePicture = c.ProfilePicture
+                }).ToList();
+        }
+        public bool UserOwnsContact(int userId, int contactId)
+        {
+            Contact? contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
+            if (contact is null) return false;
+            return contact.UserId == userId;
         }
         public int Add(ContactForCreation dto, int userId)
         {
@@ -64,8 +71,10 @@ namespace ContactsAgenda.Services
                 Name = dto.Name,
                 LastName = dto.LastName,
                 Email = dto.Email,
+                Address = dto.Address,
                 PhoneNumber = dto.PhoneNumber,
                 Description = dto.Description,
+                ProfilePicture = dto.ProfilePicture,
                 UserId = userId
             };
             _context.Contacts.Add(contact);
@@ -76,10 +85,13 @@ namespace ContactsAgenda.Services
         {
             Contact? contact = _context.Contacts.FirstOrDefault(c => c.Id == dto.Id);
             if (contact is null) return false;
-            if (dto.Name != string.Empty) contact.Name = dto.Name;
-            if (dto.Email != string.Empty) contact.Email = dto.Email;
-            if (dto.PhoneNumber != string.Empty) contact.PhoneNumber = dto.PhoneNumber;
-            if (dto.Description != string.Empty) contact.Description = dto.Description;
+            contact.Name = dto.Name;
+            contact.LastName = dto.LastName;
+            contact.Address = dto.Address;
+            contact.Email = dto.Email;
+            contact.PhoneNumber = dto.PhoneNumber;
+            contact.Description = dto.Description;
+            contact.ProfilePicture = dto.ProfilePicture;
             _context.Contacts.Update(contact);
             _context.SaveChanges();
             return true;

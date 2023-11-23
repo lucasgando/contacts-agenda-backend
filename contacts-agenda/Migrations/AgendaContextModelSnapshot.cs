@@ -22,6 +22,10 @@ namespace contacts_agenda.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -38,6 +42,10 @@ namespace contacts_agenda.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ProfilePicture")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
@@ -51,19 +59,23 @@ namespace contacts_agenda.Migrations
                         new
                         {
                             Id = 1,
+                            Address = "",
                             Email = "contact1@mail.com",
                             LastName = "c2",
                             Name = "contact1",
                             PhoneNumber = "1",
+                            ProfilePicture = "",
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
+                            Address = "la paz",
                             Email = "contact2@mail.com",
                             LastName = "c2",
                             Name = "contact2",
                             PhoneNumber = "2",
+                            ProfilePicture = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.confirmbets.com%2Fwp-content%2Fuploads%2F2019%2F07%2FMessi.jpg&f=1&nofb=1&ipt=6035a6696880fc216b7b9936ccdd11f3598497d322ae62f73fc7ae390179b0ca&ipo=images",
                             UserId = 2
                         });
                 });

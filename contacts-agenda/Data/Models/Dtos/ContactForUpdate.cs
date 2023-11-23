@@ -6,10 +6,16 @@ namespace ContactsAgenda.Data.Models.Dtos
     {
         [Required]
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        public string Address { get; set; }
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
-        public string Description = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string ProfilePicture {  get; set; } = string.Empty;
     }
 }

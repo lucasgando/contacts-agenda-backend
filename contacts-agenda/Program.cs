@@ -50,7 +50,17 @@ namespace ContactsAgenda
             builder.Services.AddSingleton<ContactService>();
             builder.Services.AddSingleton<UserService>();
             #endregion
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: "AllowOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
+                    });
+            });
             builder.Services.AddAuthentication("Bearer")
                 .AddJwtBearer(options =>
                     options.TokenValidationParameters = new()
@@ -74,6 +84,8 @@ namespace ContactsAgenda
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowOrigin");
 
             app.UseAuthentication();
 
